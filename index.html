@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Zebra Fantasy Football</title>
+<style>
+:root{--ink:#101418;--muted:#66717d;--paper:#f5f6f7;--card:#fff;--line:#dfe3e6;--blue:#1667d9;--blue2:#0b4faa;--green:#0d7a55;--amber:#a25b00;--red:#b42318;--shadow:0 12px 34px rgba(18,28,45,.08)}
+*{box-sizing:border-box}html{background:#0e1114}body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--paper);color:var(--ink)}
+button,input,select{font:inherit}
+.stripe{height:10px;background:repeating-linear-gradient(120deg,#080a0c 0 15px,#fff 15px 30px)}
+.top{background:#0d1115;color:#fff}.topin{max-width:1240px;margin:auto;padding:22px 22px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:13px}.mark{width:44px;height:44px;border-radius:12px;background:#fff;color:#0b0e11;display:grid;place-items:center;font-weight:1000;font-size:20px;box-shadow:inset 0 0 0 4px #0d1115,inset 0 0 0 6px #fff;transform:rotate(-2deg)}
+.brand h1{font-size:23px;line-height:1;margin:0;letter-spacing:-.035em}.brand p{margin:5px 0 0;color:#aeb8c2;font-size:12px}.pilot{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;background:#fff;color:#111;padding:8px 10px;border-radius:999px;white-space:nowrap}
+.hero{background:#111820;color:#fff;border-top:1px solid #232d37}.heroin{max-width:1240px;margin:auto;padding:24px 22px 26px;display:grid;grid-template-columns:1.35fr .65fr;gap:28px;align-items:center}
+.hero h2{font-size:34px;line-height:1.04;letter-spacing:-.045em;margin:0 0 10px}.hero h2 span{color:#82b8ff}.hero p{color:#c4cbd2;margin:0;max-width:700px;line-height:1.5;font-size:14px}
+.heroRule{background:#fff;color:#111;border-radius:15px;padding:16px 18px}.heroRule .big{font-size:20px;font-weight:1000;letter-spacing:-.025em}.heroRule .small{font-size:11px;color:#5e6872;margin-top:5px;line-height:1.4}
+.deadline{background:#e9f2ff;border-bottom:1px solid #cdddf2}.deadlinein{max-width:1240px;margin:auto;padding:11px 22px;display:flex;gap:10px;align-items:center;font-size:12px;color:#19385d}.deadline strong{color:#0b4faa}.dot{width:8px;height:8px;border-radius:50%;background:#2b7de9;flex:none}
+main{max-width:1240px;margin:0 auto;padding:20px 22px 50px}
+.learn{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}.learnCard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 2px 8px rgba(18,28,45,.025)}.learnTop{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}.learnLabel{font-size:11px;font-weight:1000;letter-spacing:.08em;text-transform:uppercase}.learnCard p{font-size:12px;line-height:1.45;margin:0;color:var(--muted)}.crewLearn{border-left:5px solid #111}.teamLearn{border-left:5px solid var(--blue)}.mini{font-size:10px;font-weight:850;padding:4px 7px;border-radius:999px;background:#f1f3f5;color:#4f5a64}
+.gameGrid{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:16px;align-items:start}
+.pool{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}.poolHead{padding:16px 17px 12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-end;gap:12px}.poolHead h3{font-size:18px;margin:0}.poolHead p{font-size:11px;color:var(--muted);margin:4px 0 0}.poolCount{font-size:11px;font-weight:850;color:#53606c}
+.filters{padding:10px 12px;display:flex;gap:8px;background:#fafbfc;border-bottom:1px solid var(--line)}.filters input,.filters select{border:1px solid #d6dce1;border-radius:8px;background:#fff;padding:9px 10px;font-size:12px;color:#222}.filters input{flex:1;min-width:150px}
+.refCard{border-bottom:1px solid #edf0f2}.refCard:last-child{border-bottom:0}.refMain{padding:13px 14px;display:grid;grid-template-columns:minmax(160px,1.25fr) 116px 150px 170px 86px 40px;gap:10px;align-items:center}.refMain.locked{opacity:.55;background:#f7f8f9}
+.name{font-size:14px;font-weight:900;letter-spacing:-.015em}.game{font-size:11px;color:#5f6b76;margin-top:4px;font-weight:700}.kick{font-size:10px;color:#909aa3;margin-top:2px}.sub{font-size:9px;color:#8a4c00;margin-top:3px;font-weight:750}
+.metricLabel{font-size:9px;letter-spacing:.075em;text-transform:uppercase;color:#8a949d;font-weight:950;margin-bottom:3px}.metricBig{font-size:16px;font-weight:950;letter-spacing:-.02em}.metricSub{font-size:9px;color:#7b8690;margin-top:2px;line-height:1.25}
+.dual{display:grid;grid-template-columns:1fr 1fr;border-radius:9px;overflow:hidden;border:1px solid #dce2e7;background:#fff}.dual > div{padding:8px 9px}.dual > div+div{border-left:1px solid #e4e8eb}.dual .crewBox{background:#f7f7f7}.dual .teamBox{background:#f1f7ff}.dual .metricBig{font-size:14px}.dual .metricSub{font-size:8.5px}
+.match{display:flex;flex-direction:column;align-items:flex-start}.badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:950;letter-spacing:.03em}.badge.high{background:#fff0e1;color:#904d00}.badge.mid{background:#edf1f4;color:#596570}.badge.quiet{background:#e9f7f1;color:#126043}.salary{font-size:14px;font-weight:950;text-align:right}.salary small{display:block;font-size:9px;color:#87919a;font-weight:700;margin-top:2px}
+.add{width:34px;height:34px;border-radius:50%;border:0;background:var(--blue);color:#fff;font-size:20px;display:grid;place-items:center;cursor:pointer;box-shadow:0 3px 8px rgba(22,103,217,.22)}.add:hover{background:var(--blue2)}.add.sel{background:#111}.add:disabled{background:#c9cfd4;box-shadow:none;cursor:not-allowed}
+.moreBtn{margin-top:5px;border:0;background:transparent;padding:0;color:var(--blue);font-size:10px;font-weight:850;cursor:pointer}.detail{display:none;background:#fafbfc;border-top:1px dashed #dfe4e8;padding:14px 16px}.detail.open{display:block}.detailGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.detailPanel{background:#fff;border:1px solid #e1e5e9;border-radius:10px;padding:11px}.detailPanel h4{font-size:11px;margin:0 0 7px}.detailPanel p{font-size:10px;line-height:1.45;color:#68747e;margin:0}.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.chip{border:1px solid #dfe3e6;background:#fff;border-radius:6px;padding:4px 6px;font-size:10px;font-weight:850}
+.side{position:sticky;top:12px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}.sideHead{padding:16px;border-bottom:1px solid var(--line)}.sideHead h3{font-size:18px;margin:0}.room{font-size:10px;color:#697580;margin-top:4px}.nameBox{padding:12px 14px;background:#fafbfc;border-bottom:1px solid var(--line)}.nameBox label{font-size:9px;font-weight:950;letter-spacing:.07em;text-transform:uppercase;color:#6f7b85;display:block;margin-bottom:5px}.nameBox input{width:100%;border:1px solid #d7dde2;border-radius:8px;padding:9px 10px;font-size:12px}
+.cap{padding:12px 14px;border-bottom:1px solid var(--line)}.capLine{display:flex;justify-content:space-between;align-items:end;margin-bottom:7px}.capLine span{font-size:10px;color:#6d7882}.capLine b{font-size:18px;letter-spacing:-.025em}.track{height:7px;border-radius:999px;background:#e6ebef;overflow:hidden}.fill{height:100%;background:var(--blue);width:0;transition:width .2s ease}.slots{padding:6px 14px}.slot{display:grid;grid-template-columns:22px 1fr auto;gap:7px;align-items:center;min-height:50px;border-bottom:1px solid #edf0f2}.slot:last-child{border-bottom:0}.slotNum{font-size:10px;color:#9aa3aa;font-weight:900}.slotName{font-size:12px;font-weight:850}.slotMeta{font-size:9px;color:#7e8992;margin-top:2px}.remove{border:0;background:none;color:var(--red);font-size:18px;cursor:pointer}.empty{color:#a1a9b0;font-weight:750}
+.status{margin:8px 14px 0;border-radius:8px;padding:9px 10px;background:#eef2f5;color:#52606b;font-size:10px;line-height:1.4;font-weight:750}.status.good{background:#e7f6ee;color:#145d3f}.status.bad{background:#fdeceb;color:#8d221d}.save{width:calc(100% - 28px);margin:10px 14px 14px;border:0;border-radius:9px;padding:12px;background:#111;color:#fff;font-weight:950;font-size:12px;cursor:pointer}.save:disabled{opacity:.35;cursor:not-allowed}.tiny{font-size:9px;color:#8b959e;line-height:1.45;padding:0 14px 14px}
+.bottom{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px}.bottom h4{margin:0 0 8px;font-size:12px}.rules{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.rule{background:#f5f7f8;border-radius:7px;padding:7px 8px;font-size:9px;color:#68737c}.rule b{display:block;color:#111;font-size:11px;margin-bottom:2px}
+@media(max-width:980px){.gameGrid{grid-template-columns:1fr}.side{position:static}.refMain{grid-template-columns:1.2fr 110px 160px 80px 38px}.match{display:none}.detailGrid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.topin{padding:17px 15px}.brand h1{font-size:19px}.pilot{font-size:9px}.heroin{grid-template-columns:1fr;padding:20px 15px}.hero h2{font-size:29px}.deadlinein{padding:10px 15px}main{padding:14px 10px 40px}.learn{grid-template-columns:1fr}.refMain{grid-template-columns:1fr 78px 36px;gap:7px;padding:12px 11px}.refMain .dual{grid-column:1/3;grid-row:2}.refMain .avgBlock{grid-column:2;grid-row:1}.refMain .match{display:none}.refMain .salary{grid-column:1;grid-row:3;text-align:left;font-size:12px}.refMain .add{grid-column:3;grid-row:1/4}.detailGrid{grid-template-columns:1fr}.rules{grid-template-columns:1fr 1fr}.filters select{max-width:115px}}
+
+.factbar{background:#e9f2ff;border-bottom:1px solid #cdddf2}
+.factbarin{max-width:1240px;margin:auto;padding:10px 22px;display:flex;gap:9px 18px;align-items:center;flex-wrap:wrap;font-size:11px;font-weight:800;color:#19385d}
+.factbarin span{white-space:nowrap}.factbarin b{color:#0b4faa}
+.heroFacts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.heroFact{font-size:11px;font-weight:850;color:#d5dce3;background:#1d2731;border:1px solid #303c47;border-radius:7px;padding:6px 8px}
+.statKey{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.statKeyBox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px}.statKeyBox strong{font-size:11px;letter-spacing:.06em}.statKeyBox span{display:block;font-size:10px;color:var(--muted);margin-top:4px}
+.teamRows{margin-top:7px;border-top:1px solid #edf0f2}.teamRow{display:grid;grid-template-columns:1.15fr .85fr .85fr;gap:6px;padding:6px 0;border-bottom:1px solid #edf0f2;font-size:9.5px}.teamRow:last-child{border-bottom:0}.teamRow b{font-size:10px}.teamHdr{color:#8a949d;font-size:8px;text-transform:uppercase;letter-spacing:.05em;font-weight:900}
+.detailMeta{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:7px}.detailMeta span{background:#f5f7f8;border-radius:6px;padding:5px 6px;font-size:9px;color:#58636d}.detailMeta b{color:#111}
+@media(max-width:700px){.factbarin{padding:9px 15px}.statKey{grid-template-columns:1fr}.heroFacts{gap:5px}.heroFact{font-size:10px}}
+
+
+.gate{position:fixed;inset:0;background:rgba(10,15,20,.94);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
+.gateCard{width:min(420px,100%);background:#fff;border-radius:16px;padding:24px;box-shadow:0 24px 70px rgba(0,0,0,.35)}
+.gateCard h2{margin:0 0 6px;font-size:23px}.gateCard p{margin:0 0 16px;color:#66717b;font-size:12px;line-height:1.45}
+.gateRow{display:flex;gap:8px}.gateRow input{flex:1;border:1px solid #ccd4da;border-radius:8px;padding:11px 12px;font-size:14px}
+.gateRow button{border:0;border-radius:8px;background:#0b4faa;color:#fff;font-weight:900;padding:0 16px;cursor:pointer}
+.gateError{font-size:11px;color:#a82118;margin-top:9px;min-height:15px}
+.sharedTag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;color:#16603c;background:#e8f5ee;border-radius:999px;padding:5px 8px}
+.sharedDot{width:7px;height:7px;background:#1b8f55;border-radius:50%}
+.leader{border-top:1px solid var(--line);margin-top:10px}.leaderHead{padding:12px 15px 8px;display:flex;justify-content:space-between;align-items:center}
+.leaderHead h4{margin:0;font-size:13px}.leaderMeta{font-size:9px;color:var(--muted);font-weight:800}
+.lbrow{display:grid;grid-template-columns:24px 1fr auto;gap:7px;align-items:start;padding:9px 15px;border-top:1px solid #edf0f2}
+.lbrank{font-size:10px;color:#8b949d;font-weight:900}.lbname{font-size:11px;font-weight:900}.lbsub{font-size:9px;color:#7c8790;margin-top:2px;line-height:1.35}.lbscore{font-size:12px;font-weight:950;text-align:right}.lbstate{font-size:8px;color:#79838b;text-align:right;margin-top:2px}
+.refreshBtn{border:0;background:none;color:#0b4faa;font-size:9px;font-weight:900;cursor:pointer;padding:0}
+.serverNote{font-size:9px;color:#727e87;padding:0 15px 10px;line-height:1.35}
+
+</style>
+</head>
+<body>
+<div id="gate" class="gate">
+ <div class="gateCard">
+  <h2>Zebra Fantasy Football</h2>
+  <p>Private Week 5 contest</p>
+  <div class="gateRow"><input id="accessCode" autocomplete="off" placeholder="Access code"><button id="enterRoom">Enter</button></div>
+  <div id="gateError" class="gateError"></div>
+ </div>
+</div>
+<div class="stripe"></div>
+<header class="top"><div class="topin">
+ <div class="brand"><div class="mark">Z</div><div><h1>Zebra Fantasy Football</h1><p>NFL officiating crew fantasy game</p></div></div>
+ <div class="pilot">Week 5</div>
+<div class="sharedTag"><span class="sharedDot"></span>SHARED CONTEST</div></div></header>
+<section class="hero"><div class="heroin">
+ <div><h2>Pick 5 officiating crews.</h2><div class="heroFacts"><span class="heroFact">$1,000,000 cap</span><span class="heroFact">Lowest score wins</span><span class="heroFact">Exact ties stay tied</span></div></div>
+ <div class="heroRule"><div class="big">SUN 1:00 PM ET</div><div class="small">New-entry deadline<br>Individual crew locks at kickoff</div></div>
+</div></section>
+<div class="factbar"><div class="factbarin">
+ <span><b>THURSDAY:</b> not required</span>
+ <span><b>ENTRY:</b> Sun 1:00 PM ET</span>
+ <span><b>LOCKS:</b> individual kickoff</span>
+ <span><b>STATS:</b> through Week 4</span>
+</div></div>
+<main>
+ <section class="statKey">
+  <div class="statKeyBox"><strong>CREW = OFFICIALS</strong><span>FLAGS/G · YDS/G</span></div>
+  <div class="statKeyBox"><strong>TEAMS = MATCHUP</strong><span>COMMIT/G · DRAW/G</span></div>
+ </section>
+ <div class="gameGrid">
+  <section class="pool">
+   <div class="poolHead"><div><h3>Crew Pool</h3></div><div id="poolCount" class="poolCount"></div></div>
+   <div class="filters"><input id="search" placeholder="Search referee or game"><select id="sort"><option value="salary">Sort: Salary</option><option value="avg">Sort: Avg score</option><option value="crew">Sort: Crew flags/G</option><option value="team">Sort: Team matchup</option><option value="kickoff">Sort: Kickoff</option></select></div>
+   <div id="pool"></div>
+  </section>
+
+  <aside class="side">
+   <div class="sideHead"><h3>My Lineup</h3><div class="room">5 crews · $1M cap</div></div>
+   <div class="nameBox"><label>Display name</label><input id="displayName" maxlength="28" placeholder="Your name"></div>
+   <div class="cap"><div class="capLine"><span>Salary remaining</span><b id="remaining">$1,000K</b></div><div class="track"><div id="fill" class="fill"></div></div></div>
+   <div id="slots" class="slots"></div>
+   <div id="status" class="status">Pick five available crews.</div>
+   <button id="save" class="save" disabled>Save lineup</button>
+   <div class="tiny">Your edit key stays on this device.</div>
+   <section class="leader">
+    <div class="leaderHead"><h4>Leaderboard</h4><button id="refreshBoard" class="refreshBtn">REFRESH</button></div>
+    <div id="leaderMeta" class="leaderMeta" style="padding:0 15px 8px"></div>
+    <div id="leaderboard"></div>
+    <div class="serverNote">Other lineups stay hidden until new entries close.</div>
+   </section>
+  </aside>
+ </div>
+
+ <section class="bottom"><h4>Scoring</h4><div class="rules">
+  <div class="rule"><b>−1</b>enforced penalty</div>
+  <div class="rule"><b>−0.1 / yd</b>enforced yards</div>
+  <div class="rule"><b>−1 / −3</b>3D / 4D Erase</div>
+  <div class="rule"><b>TD −6 · FG −3</b>2PT/Safety −2 · XP −1</div>
+  <div class="rule"><b>+6</b>replay reversal</div>
+ </div><div class="tiny" style="padding:9px 0 0">Declined/offsetting: 0 · applicable components stack.</div></section>
+</main>
+<script>
+const DATA=[{"chief":"Alex Moore","game":"TB@DAL","kickoff":"2026-10-08T20:15:00-04:00","salary":270000,"season_avg":-37.25,"season_rank":2,"rolling8":-32.5125,"crew_flags":18.0,"crew_flags_rank":2,"crew_yards":160.0,"crew_yards_rank":2,"commit_flags":13.3,"commit_flags_rank":11,"draw_flags":17.3,"draw_flags_rank":1,"environment":15.3,"environment_rank":7,"band":"MID","band_class":"mid","band_note":"Middle of this slate","last4":[-38.1,-16.2,-32.4,-62.3],"third_pg":1.75,"fourth_pg":0.5,"erase_pg":-6.0,"replay_pg":1.0,"substitution":"","games_worked":4,"away_name":"Tampa Bay","home_name":"Dallas","away_stats":{"pen_pg":6.5,"pen_pg_rank":6,"pen_yds_pg":49.8,"pen_yds_pg_rank":11,"drawn_pg":8.0,"drawn_pg_rank":12,"drawn_yds_pg":65.0,"drawn_yds_pg_rank":10},"home_stats":{"pen_pg":6.8,"pen_pg_rank":8,"pen_yds_pg":64.3,"pen_yds_pg_rank":19,"drawn_pg":9.3,"drawn_pg_rank":5,"drawn_yds_pg":80.0,"drawn_yds_pg_rank":2},"commit_yards":114.1,"draw_yards":145.0},{"chief":"Ron Torbert","game":"PHI@JAX","kickoff":"2026-10-11T09:30:00-04:00","salary":120000,"season_avg":-17.825,"season_rank":17,"rolling8":-16.6,"crew_flags":11.5,"crew_flags_rank":17,"crew_yards":95.75,"crew_yards_rank":15,"commit_flags":14.3,"commit_flags_rank":9,"draw_flags":16.8,"draw_flags_rank":4,"environment":15.55,"environment_rank":5,"band":"HIGH","band_class":"high","band_note":"Penalty-friendly matchup","last4":[-32.5,-30.4,-1.5,-6.9],"third_pg":0.5,"fourth_pg":0.25,"erase_pg":0.0,"replay_pg":0.75,"substitution":"","games_worked":4,"away_name":"Philadelphia","home_name":"Jacksonville","away_stats":{"pen_pg":7.3,"pen_pg_rank":12,"pen_yds_pg":48.3,"pen_yds_pg_rank":9,"drawn_pg":6.5,"drawn_pg_rank":22,"drawn_yds_pg":58.8,"drawn_yds_pg_rank":19},"home_stats":{"pen_pg":7.0,"pen_pg_rank":10,"pen_yds_pg":61.5,"pen_yds_pg_rank":16,"drawn_pg":10.3,"drawn_pg_rank":1,"drawn_yds_pg":76.0,"drawn_yds_pg_rank":3},"commit_yards":109.8,"draw_yards":134.8},{"chief":"Brad Rogers","game":"CIN@MIA","kickoff":"2026-10-11T13:00:00-04:00","salary":230000,"season_avg":-21.0,"season_rank":11,"rolling8":-23.875,"crew_flags":12.5,"crew_flags_rank":14,"crew_yards":105.0,"crew_yards_rank":13,"commit_flags":17.0,"commit_flags_rank":4,"draw_flags":16.8,"draw_flags_rank":3,"environment":16.9,"environment_rank":1,"band":"HIGH","band_class":"high","band_note":"Penalty-friendly matchup","last4":[-32.8,-19.2,-10.1,-21.9],"third_pg":1.75,"fourth_pg":0.0,"erase_pg":-0.75,"replay_pg":0.75,"substitution":"","games_worked":4,"away_name":"Cincinnati","home_name":"Miami","away_stats":{"pen_pg":9.0,"pen_pg_rank":27,"pen_yds_pg":68.3,"pen_yds_pg_rank":22,"drawn_pg":8.8,"drawn_pg_rank":8,"drawn_yds_pg":71.0,"drawn_yds_pg_rank":7},"home_stats":{"pen_pg":8.0,"pen_pg_rank":24,"pen_yds_pg":57.5,"pen_yds_pg_rank":15,"drawn_pg":8.0,"drawn_pg_rank":12,"drawn_yds_pg":60.5,"drawn_yds_pg_rank":18},"commit_yards":125.8,"draw_yards":131.5},{"chief":"Shawn Smith","game":"IND@PIT","kickoff":"2026-10-11T13:00:00-04:00","salary":200000,"season_avg":-20.75,"season_rank":13,"rolling8":-21.225,"crew_flags":12.5,"crew_flags_rank":15,"crew_yards":110.0,"crew_yards_rank":9,"commit_flags":10.3,"commit_flags_rank":15,"draw_flags":16.3,"draw_flags_rank":6,"environment":13.3,"environment_rank":15,"band":"QUIET","band_class":"quiet","band_note":"Lower-flag matchup","last4":[-19.5,-28.8,-13.8,-20.9],"third_pg":1.0,"fourth_pg":0.0,"erase_pg":-0.75,"replay_pg":0.75,"substitution":"","games_worked":4,"away_name":"Indianapolis","home_name":"Pittsburgh","away_stats":{"pen_pg":4.0,"pen_pg_rank":1,"pen_yds_pg":26.3,"pen_yds_pg_rank":1,"drawn_pg":7.5,"drawn_pg_rank":15,"drawn_yds_pg":67.5,"drawn_yds_pg_rank":9},"home_stats":{"pen_pg":6.3,"pen_pg_rank":5,"pen_yds_pg":49.5,"pen_yds_pg_rank":10,"drawn_pg":8.8,"drawn_pg_rank":8,"drawn_yds_pg":63.8,"drawn_yds_pg_rank":12},"commit_yards":75.8,"draw_yards":131.3},{"chief":"Clay Martin","game":"CHI@GB","kickoff":"2026-10-11T13:00:00-04:00","salary":190000,"season_avg":-22.4,"season_rank":9,"rolling8":-21.2125,"crew_flags":13.25,"crew_flags_rank":12,"crew_yards":99.0,"crew_yards_rank":14,"commit_flags":17.8,"commit_flags_rank":2,"draw_flags":15.5,"draw_flags_rank":9,"environment":16.65,"environment_rank":2,"band":"HIGH","band_class":"high","band_note":"Penalty-friendly matchup","last4":[-25.2,-13.0,-21.7,-29.7],"third_pg":0.0,"fourth_pg":0.25,"erase_pg":-1.5,"replay_pg":0.5,"substitution":"Substitution for Adrian Hill","games_worked":4,"away_name":"Chicago","home_name":"Green Bay","away_stats":{"pen_pg":7.3,"pen_pg_rank":12,"pen_yds_pg":47.3,"pen_yds_pg_rank":8,"drawn_pg":9.0,"drawn_pg_rank":7,"drawn_yds_pg":61.5,"drawn_yds_pg_rank":16},"home_stats":{"pen_pg":10.5,"pen_pg_rank":31,"pen_yds_pg":86.0,"pen_yds_pg_rank":32,"drawn_pg":6.5,"drawn_pg_rank":22,"drawn_yds_pg":67.8,"drawn_yds_pg_rank":8},"commit_yards":133.3,"draw_yards":129.3},{"chief":"Craig Wrolstad","game":"LV@NE","kickoff":"2026-10-11T13:00:00-04:00","salary":180000,"season_avg":-24.433333333333334,"season_rank":7,"rolling8":-20.3375,"crew_flags":15.333333333333334,"crew_flags_rank":7,"crew_yards":124.33333333333333,"crew_yards_rank":6,"commit_flags":12.8,"commit_flags_rank":14,"draw_flags":14.8,"draw_flags_rank":10,"environment":13.8,"environment_rank":12,"band":"QUIET","band_class":"quiet","band_note":"Lower-flag matchup","last4":[-15.5,-19.0,-19.6,-34.7],"third_pg":0.6666666666666666,"fourth_pg":0.0,"erase_pg":0.0,"replay_pg":0.6666666666666666,"substitution":"","games_worked":3,"away_name":"Las Vegas","home_name":"New England","away_stats":{"pen_pg":5.8,"pen_pg_rank":3,"pen_yds_pg":30.0,"pen_yds_pg_rank":2,"drawn_pg":8.0,"drawn_pg_rank":12,"drawn_yds_pg":50.3,"drawn_yds_pg_rank":24},"home_stats":{"pen_pg":7.0,"pen_pg_rank":10,"pen_yds_pg":46.0,"pen_yds_pg_rank":6,"drawn_pg":6.8,"drawn_pg_rank":21,"drawn_yds_pg":61.0,"drawn_yds_pg_rank":17},"commit_yards":76.0,"draw_yards":111.3},{"chief":"Alex Kemp","game":"HOU@TEN","kickoff":"2026-10-11T13:00:00-04:00","salary":170000,"season_avg":-18.766666666666666,"season_rank":15,"rolling8":-20.1125,"crew_flags":12.0,"crew_flags_rank":16,"crew_yards":91.0,"crew_yards_rank":17,"commit_flags":13.6,"commit_flags_rank":10,"draw_flags":17.3,"draw_flags_rank":2,"environment":15.45,"environment_rank":6,"band":"MID","band_class":"mid","band_note":"Middle of this slate","last4":[-18.0,-13.4,-42.4,-0.5],"third_pg":1.6666666666666667,"fourth_pg":0.0,"erase_pg":-4.0,"replay_pg":1.3333333333333333,"substitution":"","games_worked":3,"away_name":"Houston","home_name":"Tennessee","away_stats":{"pen_pg":7.8,"pen_pg_rank":19,"pen_yds_pg":73.3,"pen_yds_pg_rank":26,"drawn_pg":8.5,"drawn_pg_rank":11,"drawn_yds_pg":62.8,"drawn_yds_pg_rank":13},"home_stats":{"pen_pg":5.8,"pen_pg_rank":3,"pen_yds_pg":41.3,"pen_yds_pg_rank":3,"drawn_pg":8.8,"drawn_pg_rank":8,"drawn_yds_pg":75.5,"drawn_yds_pg_rank":4},"commit_yards":114.6,"draw_yards":138.3},{"chief":"John Hussey","game":"MIN@NO","kickoff":"2026-10-11T13:00:00-04:00","salary":160000,"season_avg":-23.166666666666668,"season_rank":8,"rolling8":-19.125,"crew_flags":15.0,"crew_flags_rank":8,"crew_yards":115.0,"crew_yards_rank":7,"commit_flags":13.3,"commit_flags_rank":12,"draw_flags":16.3,"draw_flags_rank":7,"environment":14.8,"environment_rank":9,"band":"MID","band_class":"mid","band_note":"Middle of this slate","last4":[-12.7,-17.6,-23.3,-28.6],"third_pg":0.6666666666666666,"fourth_pg":0.0,"erase_pg":0.0,"replay_pg":0.6666666666666666,"substitution":"","games_worked":3,"away_name":"Minnesota","home_name":"New Orleans","away_stats":{"pen_pg":6.5,"pen_pg_rank":6,"pen_yds_pg":55.0,"pen_yds_pg_rank":12,"drawn_pg":9.3,"drawn_pg_rank":5,"drawn_yds_pg":73.0,"drawn_yds_pg_rank":5},"home_stats":{"pen_pg":6.8,"pen_pg_rank":8,"pen_yds_pg":43.3,"pen_yds_pg_rank":4,"drawn_pg":7.0,"drawn_pg_rank":19,"drawn_yds_pg":38.0,"drawn_yds_pg_rank":30},"commit_yards":98.3,"draw_yards":111.0},{"chief":"Clete Blakeman","game":"NYG@WAS","kickoff":"2026-10-11T13:00:00-04:00","salary":140000,"season_avg":-17.875,"season_rank":16,"rolling8":-18.3375,"crew_flags":16.25,"crew_flags_rank":5,"crew_yards":108.75,"crew_yards_rank":10,"commit_flags":14.8,"commit_flags_rank":8,"draw_flags":12.1,"draw_flags_rank":14,"environment":13.45,"environment_rank":14,"band":"QUIET","band_class":"quiet","band_note":"Lower-flag matchup","last4":[-9.0,-12.9,-21.8,-27.8],"third_pg":0.5,"fourth_pg":0.5,"erase_pg":-2.25,"replay_pg":2.25,"substitution":"","games_worked":4,"away_name":"NY Giants","home_name":"Washington","away_stats":{"pen_pg":7.3,"pen_pg_rank":12,"pen_yds_pg":66.5,"pen_yds_pg_rank":20,"drawn_pg":7.3,"drawn_pg_rank":18,"drawn_yds_pg":64.5,"drawn_yds_pg_rank":11},"home_stats":{"pen_pg":7.5,"pen_pg_rank":17,"pen_yds_pg":56.0,"pen_yds_pg_rank":13,"drawn_pg":4.8,"drawn_pg_rank":32,"drawn_yds_pg":32.5,"drawn_yds_pg_rank":32},"commit_yards":122.5,"draw_yards":97.0},{"chief":"Bill Vinovich","game":"CLE@NYJ","kickoff":"2026-10-11T13:00:00-04:00","salary":130000,"season_avg":-20.733333333333334,"season_rank":14,"rolling8":-17.2125,"crew_flags":14.333333333333334,"crew_flags_rank":11,"crew_yards":94.0,"crew_yards_rank":16,"commit_flags":20.1,"commit_flags_rank":1,"draw_flags":12.8,"draw_flags_rank":12,"environment":16.450000000000003,"environment_rank":3,"band":"HIGH","band_class":"high","band_note":"Penalty-friendly matchup","last4":[-14.6,-24.7,-22.9,-14.6],"third_pg":3.0,"fourth_pg":0.0,"erase_pg":0.0,"replay_pg":1.0,"substitution":"","games_worked":3,"away_name":"Cleveland","home_name":"NY Jets","away_stats":{"pen_pg":10.8,"pen_pg_rank":32,"pen_yds_pg":74.3,"pen_yds_pg_rank":27,"drawn_pg":6.3,"drawn_pg_rank":26,"drawn_yds_pg":50.0,"drawn_yds_pg_rank":25},"home_stats":{"pen_pg":9.3,"pen_pg_rank":28,"pen_yds_pg":77.5,"pen_yds_pg_rank":29,"drawn_pg":6.5,"drawn_pg_rank":22,"drawn_yds_pg":57.0,"drawn_yds_pg_rank":20},"commit_yards":151.8,"draw_yards":107.0},{"chief":"Shawn Hochuli","game":"DEN@LAC","kickoff":"2026-10-11T16:05:00-04:00","salary":220000,"season_avg":-22.3,"season_rank":10,"rolling8":-21.8125,"crew_flags":14.5,"crew_flags_rank":10,"crew_yards":113.0,"crew_yards_rank":8,"commit_flags":16.8,"commit_flags_rank":5,"draw_flags":15.8,"draw_flags_rank":8,"environment":16.3,"environment_rank":4,"band":"HIGH","band_class":"high","band_note":"Penalty-friendly matchup","last4":[-27.3,-11.0,-15.6,-35.3],"third_pg":1.75,"fourth_pg":0.0,"erase_pg":-0.75,"replay_pg":1.0,"substitution":"","games_worked":4,"away_name":"Denver","home_name":"LA Chargers","away_stats":{"pen_pg":7.3,"pen_pg_rank":12,"pen_yds_pg":46.8,"pen_yds_pg_rank":7,"drawn_pg":6.3,"drawn_pg_rank":26,"drawn_yds_pg":49.0,"drawn_yds_pg_rank":26},"home_stats":{"pen_pg":9.5,"pen_pg_rank":29,"pen_yds_pg":72.3,"pen_yds_pg_rank":25,"drawn_pg":9.5,"drawn_pg_rank":3,"drawn_yds_pg":97.8,"drawn_yds_pg_rank":1},"commit_yards":119.1,"draw_yards":146.8},{"chief":"Carl Cheffers","game":"DET@ARI","kickoff":"2026-10-11T16:25:00-04:00","salary":240000,"season_avg":-26.225,"season_rank":5,"rolling8":-24.2875,"crew_flags":15.75,"crew_flags_rank":6,"crew_yards":127.25,"crew_yards_rank":3,"commit_flags":15.6,"commit_flags_rank":6,"draw_flags":11.6,"draw_flags_rank":15,"environment":13.6,"environment_rank":13,"band":"QUIET","band_class":"quiet","band_note":"Lower-flag matchup","last4":[-36.4,-23.0,-29.0,-16.5],"third_pg":2.25,"fourth_pg":0.0,"erase_pg":-1.5,"replay_pg":1.0,"substitution":"","games_worked":4,"away_name":"Detroit","home_name":"Arizona","away_stats":{"pen_pg":7.8,"pen_pg_rank":19,"pen_yds_pg":56.8,"pen_yds_pg_rank":14,"drawn_pg":5.8,"drawn_pg_rank":28,"drawn_yds_pg":47.3,"drawn_yds_pg_rank":27},"home_stats":{"pen_pg":7.8,"pen_pg_rank":19,"pen_yds_pg":75.0,"pen_yds_pg_rank":28,"drawn_pg":5.8,"drawn_pg_rank":28,"drawn_yds_pg":50.8,"drawn_yds_pg_rank":23},"commit_yards":131.8,"draw_yards":98.1},{"chief":"Land Clark","game":"SF@SEA","kickoff":"2026-10-11T16:25:00-04:00","salary":210000,"season_avg":-25.3,"season_rank":6,"rolling8":-21.4875,"crew_flags":14.5,"crew_flags_rank":9,"crew_yards":105.5,"crew_yards_rank":12,"commit_flags":13.100000000000001,"commit_flags_rank":13,"draw_flags":16.5,"draw_flags_rank":5,"environment":14.8,"environment_rank":10,"band":"MID","band_class":"mid","band_note":"Middle of this slate","last4":[-22.3,-19.3,-33.7,-25.9],"third_pg":0.25,"fourth_pg":0.5,"erase_pg":-1.5,"replay_pg":0.5,"substitution":"","games_worked":4,"away_name":"San Francisco","home_name":"Seattle","away_stats":{"pen_pg":4.3,"pen_pg_rank":2,"pen_yds_pg":43.3,"pen_yds_pg_rank":4,"drawn_pg":7.0,"drawn_pg_rank":19,"drawn_yds_pg":55.8,"drawn_yds_pg_rank":21},"home_stats":{"pen_pg":8.8,"pen_pg_rank":25,"pen_yds_pg":81.8,"pen_yds_pg_rank":30,"drawn_pg":9.5,"drawn_pg_rank":3,"drawn_yds_pg":71.3,"drawn_yds_pg_rank":6},"commit_yards":125.1,"draw_yards":127.1},{"chief":"Brad Allen","game":"BAL@ATL","kickoff":"2026-10-11T20:20:00-04:00","salary":250000,"season_avg":-35.825,"season_rank":3,"rolling8":-25.475,"crew_flags":17.0,"crew_flags_rank":4,"crew_yards":125.75,"crew_yards_rank":5,"commit_flags":17.1,"commit_flags_rank":3,"draw_flags":12.8,"draw_flags_rank":11,"environment":14.950000000000001,"environment_rank":8,"band":"MID","band_class":"mid","band_note":"Middle of this slate","last4":[-50.1,-17.0,-38.5,-37.7],"third_pg":1.75,"fourth_pg":0.5,"erase_pg":-4.5,"replay_pg":0.25,"substitution":"","games_worked":4,"away_name":"Baltimore","home_name":"Atlanta","away_stats":{"pen_pg":9.8,"pen_pg_rank":30,"pen_yds_pg":82.3,"pen_yds_pg_rank":31,"drawn_pg":5.3,"drawn_pg_rank":30,"drawn_yds_pg":46.0,"drawn_yds_pg_rank":28},"home_stats":{"pen_pg":7.3,"pen_pg_rank":12,"pen_yds_pg":72.0,"pen_yds_pg_rank":24,"drawn_pg":7.5,"drawn_pg_rank":15,"drawn_yds_pg":53.3,"drawn_yds_pg_rank":22},"commit_yards":154.3,"draw_yards":99.3},{"chief":"Scott Novak","game":"BUF@LAR","kickoff":"2026-10-12T20:15:00-04:00","salary":280000,"season_avg":-48.0,"season_rank":1,"rolling8":-35.35,"crew_flags":22.0,"crew_flags_rank":1,"crew_yards":215.0,"crew_yards_rank":1,"commit_flags":15.3,"commit_flags_rank":7,"draw_flags":12.5,"draw_flags_rank":13,"environment":13.9,"environment_rank":11,"band":"QUIET","band_class":"quiet","band_note":"Lower-flag matchup","last4":[-33.5,-57.9,-37.6,-63.0],"third_pg":2.25,"fourth_pg":0.25,"erase_pg":-3.0,"replay_pg":0.25,"substitution":"","games_worked":4,"away_name":"Buffalo","home_name":"LA Rams","away_stats":{"pen_pg":7.5,"pen_pg_rank":17,"pen_yds_pg":62.5,"pen_yds_pg_rank":17,"drawn_pg":7.5,"drawn_pg_rank":15,"drawn_yds_pg":62.3,"drawn_yds_pg_rank":14},"home_stats":{"pen_pg":7.8,"pen_pg_rank":19,"pen_yds_pg":71.0,"pen_yds_pg_rank":23,"drawn_pg":5.0,"drawn_pg_rank":31,"drawn_yds_pg":34.0,"drawn_yds_pg_rank":31},"commit_yards":133.5,"draw_yards":96.3}];
+const CAP=1000000;
+const FALLBACK_CUTOFF=new Date('2026-10-11T13:00:00-04:00');
+const STORE='zebraFantasyFootballW5';
+const ROOM_STORE='zffRoomCodeW5';
+const ENTRY_STORE='zffSharedEntryW5';
+const API='https://bpsdssqipumonczgzzeu.supabase.co/functions/v1/zebra-fantasy-pilot-v2';
+let selected=[];let saved=false;let hasEntry=false;let roomCode='';let entryCreds=null;let serverState=null;let serverOffsetMs=0;
+const money=n=>'$'+Math.round(n/1000)+'K';
+const score=n=>(n>0?'+':'')+Number(n).toFixed(1);
+const now=()=>new Date(Date.now()+serverOffsetMs);
+const cutoff=()=>serverState?.week?.entry_cutoff?new Date(serverState.week.entry_cutoff):FALLBACK_CUTOFF;
+const isLocked=r=>now()>=new Date(r.kickoff);
+const entryOpen=()=>now()<cutoff();
+
+async function api(payload){
+ const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload,room_code:roomCode})});
+ let body={};try{body=await res.json()}catch(e){}
+ if(!res.ok)throw new Error(body.error||('Server error '+res.status));
+ return body;
+}
+function applyServerState(state){
+ serverState=state;
+ if(state?.server_now)serverOffsetMs=new Date(state.server_now).getTime()-Date.now();
+ const byChief=new Map((state?.crews||[]).map(c=>[c.chief,c]));
+ DATA.forEach(r=>{const c=byChief.get(r.chief);if(c){r.salary=Number(c.salary);r.kickoff=c.kickoff}});
+ render();
+ renderLeaderboard();
+}
+function renderLeaderboard(){
+ const root=document.getElementById('leaderboard');if(!root)return;
+ const list=serverState?.leaderboard||[];
+ document.getElementById('leaderMeta').textContent=list.length+' entr'+(list.length===1?'y':'ies')+' · '+(serverState?.reveal_lineups?'lineups visible':'lineups hidden');
+ root.innerHTML='';
+ if(!list.length){root.innerHTML='<div class="serverNote">No entries yet.</div>';return}
+ list.forEach((e,i)=>{
+   const div=document.createElement('div');div.className='lbrow';
+   const total=e.scored_crews?score(e.total):'—';
+   const lineup=e.lineup?e.lineup.join(' · '):'Lineup hidden until entries close';
+   div.innerHTML=`<div class="lbrank">${e.scored_crews?i+1:'—'}</div><div><div class="lbname">${escapeHtml(e.display_name)}</div><div class="lbsub">${escapeHtml(lineup)}</div></div><div><div class="lbscore">${total}</div><div class="lbstate">${e.scored_crews}/5 · ${e.score_state}</div></div>`;
+   root.appendChild(div);
+ })
+}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function refreshState(){
+ if(!roomCode)return;
+ try{const state=await api({action:'state'});applyServerState(state)}
+ catch(e){setStatus(e.message,true)}
+}
+async function connectRoom(){
+ const code=document.getElementById('accessCode').value.trim();
+ if(!code)return;
+ roomCode=code;
+ const err=document.getElementById('gateError');err.textContent='Checking…';
+ try{
+   const state=await api({action:'state'});
+   localStorage.setItem(ROOM_STORE,roomCode);
+   document.getElementById('gate').style.display='none';
+   err.textContent='';
+   applyServerState(state);
+ }catch(e){roomCode='';err.textContent=e.message}
+}
+function fmtKickoff(iso){return new Date(iso).toLocaleString([],{weekday:'short',hour:'numeric',minute:'2-digit'})}
+function selectedRows(){return selected.map(n=>DATA.find(r=>r.chief===n)).filter(Boolean)}
+function spent(){return selectedRows().reduce((a,r)=>a+r.salary,0)}
+function toggle(name){
+ const r=DATA.find(x=>x.chief===name); if(!r)return;
+ if(selected.includes(name)){if(isLocked(r)){setStatus(r.chief+' is already locked and cannot be removed.',true);return} selected=selected.filter(x=>x!==name); saved=false; render();return}
+ if(isLocked(r)){setStatus(r.chief+' has already kicked off. Choose a remaining crew.',true);return}
+ if(selected.length>=5){setStatus('Five crews maximum. Remove an unlocked crew first.',true);return}
+ selected.push(name);saved=false;render();
+}
+function setStatus(msg,bad=false,good=false){const e=document.getElementById('status');e.textContent=msg;e.className='status'+(bad?' bad':good?' good':'')}
+function listRows(){
+ const q=document.getElementById('search').value.toLowerCase().trim(); const sort=document.getElementById('sort').value;
+ let a=DATA.filter(r=>!q||r.chief.toLowerCase().includes(q)||r.game.toLowerCase().includes(q));
+ a.sort((x,y)=>{if(sort==='salary')return y.salary-x.salary;if(sort==='avg')return x.season_avg-y.season_avg;if(sort==='crew')return y.crew_flags-x.crew_flags;if(sort==='team')return x.environment_rank-y.environment_rank;if(sort==='kickoff')return new Date(x.kickoff)-new Date(y.kickoff);return 0});return a;
+}
+function renderPool(){
+ const root=document.getElementById('pool');root.innerHTML='';const rows=listRows();
+ document.getElementById('poolCount').textContent=DATA.filter(r=>!isLocked(r)).length+' available · '+DATA.length+' total';
+ rows.forEach(r=>{
+  const card=document.createElement('div');card.className='refCard';const locked=isLocked(r);const sel=selected.includes(r.chief);
+  const away=r.away_stats,home=r.home_stats;
+  card.innerHTML=`<div class="refMain ${locked&&!sel?'locked':''}">
+   <div>
+    <div class="name">${r.chief}</div>
+    <div class="game">${r.game}</div>
+    <div class="kick">${locked?'LOCKED':fmtKickoff(r.kickoff)}</div>
+    ${r.substitution?`<div class="sub">${r.substitution}</div>`:''}
+    <button class="moreBtn">Details ↓</button>
+   </div>
+   <div class="avgBlock">
+    <div class="metricLabel">AVG SCORE</div>
+    <div class="metricBig">${score(r.season_avg)}</div>
+    <div class="metricSub">#${r.season_rank} of 17</div>
+   </div>
+   <div class="dual">
+    <div class="crewBox">
+     <div class="metricLabel">CREW</div>
+     <div class="metricBig">${r.crew_flags.toFixed(1)} flags/G</div>
+     <div class="metricSub">${r.crew_yards.toFixed(1)} yds/G · #${r.crew_flags_rank}/17 flags</div>
+    </div>
+    <div class="teamBox">
+     <div class="metricLabel">TEAMS</div>
+     <div class="metricBig">${r.commit_flags.toFixed(1)} commit/G</div>
+     <div class="metricSub">${r.draw_flags.toFixed(1)} draw/G</div>
+    </div>
+   </div>
+   <div class="match">
+    <span class="badge ${r.band_class}">${r.band} · #${r.environment_rank}/15</span>
+    <div class="metricSub" style="margin-top:4px">team matchup rank</div>
+   </div>
+   <div class="salary">${money(r.salary)}<small>salary</small></div>
+   <div><button class="add ${sel?'sel':''}" ${locked&&!sel?'disabled':''}>${sel?'✓':'+'}</button></div>
+  </div>
+  <div class="detail"><div class="detailGrid">
+   <div class="detailPanel">
+    <h4>CREW DATA</h4>
+    <p><b>${r.crew_flags.toFixed(1)} flags/G</b> · #${r.crew_flags_rank} of 17<br>
+    <b>${r.crew_yards.toFixed(1)} yds/G</b> · #${r.crew_yards_rank} of 17</p>
+    <div class="detailMeta"><span><b>${r.games_worked}</b> games worked</span><span><b>${score(r.rolling8)}</b> rolling-8</span></div>
+    <div class="chips">${r.last4.map(v=>`<span class="chip">${score(v)}</span>`).join('')}</div>
+    <p style="margin-top:6px">Last 4 finalized scores</p>
+   </div>
+   <div class="detailPanel">
+    <h4>TEAM DATA</h4>
+    <div class="teamRows">
+     <div class="teamRow teamHdr"><span>Team</span><span>Commit/G</span><span>Draw/G</span></div>
+     <div class="teamRow"><b>${r.away_name}</b><span>${away.pen_pg.toFixed(1)}</span><span>${away.drawn_pg.toFixed(1)}</span></div>
+     <div class="teamRow"><b>${r.home_name}</b><span>${home.pen_pg.toFixed(1)}</span><span>${home.drawn_pg.toFixed(1)}</span></div>
+    </div>
+    <p style="margin-top:7px"><b>Combined:</b> ${r.commit_flags.toFixed(1)} commit/G · ${r.draw_flags.toFixed(1)} draw/G<br>
+    <b>Penalty yards:</b> ${r.commit_yards.toFixed(1)} commit/G · ${r.draw_yards.toFixed(1)} draw/G<br>
+    <b>Matchup:</b> ${r.environment.toFixed(1)} · #${r.environment_rank} of 15</p>
+   </div>
+   <div class="detailPanel">
+    <h4>SCORING EVENTS</h4>
+    <p>${r.third_pg.toFixed(2)} 3D Erases/G<br>
+    ${r.fourth_pg.toFixed(2)} 4D Erases/G<br>
+    ${score(r.erase_pg)} Score-Erase pts/G<br>
+    ${r.replay_pg.toFixed(2)} replay reversals/G</p>
+   </div>
+  </div></div>`;
+  card.querySelector('.add').onclick=()=>toggle(r.chief);
+  card.querySelector('.moreBtn').onclick=()=>card.querySelector('.detail').classList.toggle('open');
+  root.appendChild(card);
+ })
+}
+function renderSide(){
+ const rows=selectedRows(),used=spent(),remaining=CAP-used;document.getElementById('remaining').textContent=(remaining<0?'-':'')+money(Math.abs(remaining));document.getElementById('fill').style.width=Math.min(100,100*used/CAP)+'%';
+ const slots=document.getElementById('slots');slots.innerHTML='';for(let i=0;i<5;i++){const r=rows[i];const el=document.createElement('div');el.className='slot';if(r)el.innerHTML=`<div class="slotNum">${i+1}</div><div><div class="slotName">${r.chief}${isLocked(r)?' 🔒':''}</div><div class="slotMeta">${r.game} · ${money(r.salary)}</div></div><button class="remove" ${isLocked(r)?'disabled style="opacity:.25"':''}>×</button>`;else el.innerHTML=`<div class="slotNum">${i+1}</div><div class="slotName empty">Open crew slot</div><div></div>`;if(r&&!isLocked(r))el.querySelector('.remove').onclick=()=>toggle(r.chief);slots.appendChild(el)}
+ const name=document.getElementById('displayName').value.trim();const btn=document.getElementById('save');
+ if(!entryOpen()&&!hasEntry){setStatus('New entries closed Sunday at 1:00 PM ET.',true);btn.disabled=true;return}
+ if(rows.length<5){setStatus('Pick '+(5-rows.length)+' more crew'+(5-rows.length===1?'':'s')+'.');btn.disabled=true;return}
+ if(used>CAP){setStatus('Over the cap by '+money(used-CAP)+'.',true);btn.disabled=true;return}
+ if(!name){setStatus('Add your display name to save the lineup.');btn.disabled=true;return}
+ setStatus(saved?'Saved to shared contest.':money(remaining)+' left · lineup is valid.',false,true);btn.disabled=false;
+}
+function render(){renderPool();renderSide()}
+async function saveEntry(){
+ const name=document.getElementById('displayName').value.trim();
+ if(!roomCode){setStatus('Enter the private contest first.',true);return}
+ if(!entryOpen()&&!hasEntry){setStatus('New entries closed Sunday at 1:00 PM ET.',true);return}
+ if(!name||selected.length!==5||spent()>CAP)return;
+ const btn=document.getElementById('save');btn.disabled=true;setStatus('Saving…');
+ try{
+   let result;
+   if(hasEntry&&entryCreds){
+     result=await api({action:'update',entry_id:entryCreds.entry_id,edit_token:entryCreds.edit_token,lineup:selected});
+   }else{
+     result=await api({action:'create',display_name:name,lineup:selected});
+     entryCreds={entry_id:result.entry.entry_id,edit_token:result.edit_token};
+     localStorage.setItem(ENTRY_STORE,JSON.stringify(entryCreds));
+     hasEntry=true;
+   }
+   localStorage.setItem(STORE,JSON.stringify({name,selected,saved_at:new Date().toISOString()}));
+   saved=true;
+   if(result.state)applyServerState(result.state);else await refreshState();
+   setStatus('Saved to shared contest.',false,true);
+ }catch(e){setStatus(e.message,true)}
+ finally{renderSide()}
+}
+document.getElementById('search').oninput=renderPool;
+document.getElementById('sort').onchange=renderPool;
+document.getElementById('displayName').oninput=()=>{saved=false;renderSide()};
+document.getElementById('save').onclick=saveEntry;
+document.getElementById('enterRoom').onclick=connectRoom;
+document.getElementById('accessCode').onkeydown=e=>{if(e.key==='Enter')connectRoom()};
+document.getElementById('refreshBoard').onclick=refreshState;
+
+try{
+ const raw=localStorage.getItem(STORE);
+ if(raw){const obj=JSON.parse(raw);selected=(obj.selected||[]).filter(n=>DATA.some(r=>r.chief===n));document.getElementById('displayName').value=obj.name||''}
+ const cred=localStorage.getItem(ENTRY_STORE);
+ if(cred){entryCreds=JSON.parse(cred);hasEntry=!!entryCreds?.entry_id}
+ const savedCode=localStorage.getItem(ROOM_STORE);
+ if(savedCode){document.getElementById('accessCode').value=savedCode;roomCode=savedCode}
+}catch(e){}
+render();
+if(roomCode)connectRoom();
+setInterval(()=>{if(roomCode)refreshState();else{renderPool();renderSide()}},30000);
+</script>
+</body></html>
